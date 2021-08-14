@@ -7,11 +7,13 @@ export const getAllPosts = async (): Promise<Post[]> => {
 };
 
 export const getPost = async (postId: number): Promise<Post | null> => {
-  return prisma.post.findUnique({
+  const post = await prisma.post.findUnique({
     where: {
       id: postId,
     },
   });
+
+  return post;
 };
 
 // export const createPost = async (name: string): Promise<Post> => {
