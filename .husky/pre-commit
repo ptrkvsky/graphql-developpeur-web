@@ -3,4 +3,4 @@
 
 yarn lint-staged
 # Uncomment this line when testing hooks
-# exit 1  
+ 
