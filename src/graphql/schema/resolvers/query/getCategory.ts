@@ -1,11 +1,10 @@
-import { GraphQLInt, GraphQLNonNull } from 'graphql';
+import { GraphQLFieldConfig, GraphQLInt, GraphQLNonNull } from 'graphql';
 import { Category } from '@prisma/client';
 import { IApolloServerContext } from '@src/interfaces/IApolloServerContext';
 import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
 import { getCategory } from '@src/data/serviceCategory';
-import GetCategoryInput from '../../typedefs/GetCategoryInput';
 
-const getCategoryQuery = {
+const getCategoryQuery: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   type: GqlCategory,
   args: {
     id: {
@@ -14,7 +13,7 @@ const getCategoryQuery = {
   },
   resolve: (
     _source: unknown,
-    args: any,
+    args,
     context: IApolloServerContext,
     _info: unknown
   ): Promise<Category | null> => {
