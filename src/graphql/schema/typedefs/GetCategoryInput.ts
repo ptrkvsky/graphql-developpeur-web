@@ -6,7 +6,7 @@ const GetCategoryInput: GraphQLInputObjectType = new GraphQLInputObjectType({
   fields: {
     id: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: 'The categorys id.',
+      description: 'Id of the category.',
     },
   },
 });

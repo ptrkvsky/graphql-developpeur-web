@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn  lint
+yarn lint-staged
 # Uncomment this line when testing hooks
 # exit 1  
