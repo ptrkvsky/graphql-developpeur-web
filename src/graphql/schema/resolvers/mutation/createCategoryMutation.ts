@@ -12,13 +12,13 @@ const createCategoryMutation: GraphQLFieldConfig<
   description: 'Create Category',
   type: GqlCategory,
   args: {
-    input: {
+    data: {
       type: CreateCategoryInput,
     },
   },
   resolve: async (
     _source: unknown,
-    { input: { name } },
+    { data: { name } },
     _context: IApolloServerContext
   ): Promise<Category> => {
     return createCategory(name);

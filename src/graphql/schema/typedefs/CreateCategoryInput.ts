@@ -11,7 +11,7 @@ const CreateCategoryInput: GraphQLInputObjectType = new GraphQLInputObjectType({
   fields: {
     name: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'The categorys name.',
+      description: 'Name of the category.',
     },
   },
 });
