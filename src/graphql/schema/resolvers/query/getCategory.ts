@@ -14,7 +14,7 @@ const getCategoryQuery: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   resolve: (
     _source: unknown,
     args,
-    context: IApolloServerContext,
+    _context: IApolloServerContext,
     _info: unknown
   ): Promise<Category | null> => {
     return getCategory(args.id);

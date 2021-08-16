@@ -36,3 +36,12 @@ export const getAllCategorys = async (): Promise<Category[]> => {
 /**
  * DELETE
  */
+export const deleteCategory = async (id: number): Promise<Category | null> => {
+  const category = await prisma.category.delete({
+    where: {
+      id,
+    },
+  });
+
+  return category;
+};
