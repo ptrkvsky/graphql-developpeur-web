@@ -32,13 +32,10 @@ export const getAllCategorys = async (): Promise<Category[]> => {
 /**
  * UPDATE
  */
-type DataUpdate = {
-  id: number;
-};
 export const updateCategory = async (
   id: number,
   name: string
-): Promise<Category | null> => {
+): Promise<Category> => {
   const category = await prisma.category.update({
     data: {
       name,
