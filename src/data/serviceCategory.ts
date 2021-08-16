@@ -32,6 +32,24 @@ export const getAllCategorys = async (): Promise<Category[]> => {
 /**
  * UPDATE
  */
+type DataUpdate = {
+  id: number;
+};
+export const updateCategory = async (
+  id: number,
+  name: string
+): Promise<Category | null> => {
+  const category = await prisma.category.update({
+    data: {
+      name,
+    },
+    where: {
+      id,
+    },
+  });
+
+  return category;
+};
 
 /**
  * DELETE
