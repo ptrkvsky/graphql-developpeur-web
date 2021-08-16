@@ -1,0 +1,61 @@
+{
+  "name": "scratch-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "graphql-codegen",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "commit": "cz"
+  },
+  "keywords": [],
+  "Kovsky": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^8.0.3",
+    "@prisma/client": "2.28.0",
+    "apollo-graphql": "^0.9.3",
+    "apollo-server": "^3.1.2",
+    "dotenv-cli": "^4.0.0",
+    "dotenv-safe": "^8.2.0",
+    "graphql": "^15.5.1",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-tag": "^2.12.5"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.0.1",
+    "@graphql-codegen/typescript": "2.0.0",
+    "@graphql-codegen/typescript-document-nodes": "2.0.0",
+    "@graphql-codegen/typescript-resolvers": "2.0.0",
+    "@types/dotenv-safe": "^8.1.2",
+    "@types/graphql": "14.5.0",
+    "@types/node": "^16.4.13",
+    "@types/ws": "7.4.7",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "prisma": "2.28.0",
+    "ts-node": "10.2.0",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.3.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
