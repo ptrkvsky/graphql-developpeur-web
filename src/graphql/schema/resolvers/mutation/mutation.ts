@@ -1,12 +1,10 @@
 import { GraphQLObjectType } from 'graphql';
-import createCategoryMutation from './createCategoryMutation';
-import deleteCategoryMutation from './deleteCategoryMutation';
+import * as mutationCategory from '@src/graphql/schema/resolvers/mutation/category';
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    createCategory: createCategoryMutation,
-    deleteCategory: deleteCategoryMutation,
+    ...mutationCategory,
   },
 });
 

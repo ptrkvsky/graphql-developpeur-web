@@ -7,9 +7,8 @@ import {
   GraphQLInt,
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
-import { getCategory } from '../../../data/serviceCategory';
-// eslint-disable-next-line import/no-cycle
-import GqlCategory from './GqlCategory';
+import { getCategory } from '@src/data/serviceCategory';
+import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
 
 const GqlPost: GraphQLObjectType = new GraphQLObjectType({
   name: 'Post',
@@ -25,7 +24,7 @@ const GqlPost: GraphQLObjectType = new GraphQLObjectType({
     },
     updatedAt: {
       type: GraphQLDateTime,
-      description: 'Update date',
+      description: 'Update date of the post',
     },
     title: {
       type: GraphQLString,
@@ -38,7 +37,7 @@ const GqlPost: GraphQLObjectType = new GraphQLObjectType({
     category: {
       type: GqlCategory,
       description: 'Category of post',
-      resolve(parent, args) {
+      resolve(parent) {
         return getCategory(parent.categoryId);
       },
     },
@@ -50,16 +49,3 @@ const GqlPost: GraphQLObjectType = new GraphQLObjectType({
 });
 
 export default GqlPost;
-
-// id                    Int         @id @default(autoincrement())
-// createdAt             DateTime    @default(now())
-// updatedAt             DateTime    @default(now())
-// title                 String
-// description           String
-// content               String
-// published             Boolean     @default(false)
-// author                User        @relation(fields: [authorId], references: [id])
-// authorId              Int
-// categories            Category[]  @relation(references: [id])
-// relatedPosts          Post[]      @relation("relatedPosts")
-// relatedPostsRelation  Post[]      @relation("relatedPosts")

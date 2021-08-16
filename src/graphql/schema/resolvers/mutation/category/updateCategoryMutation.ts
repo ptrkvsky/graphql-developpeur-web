@@ -21,7 +21,7 @@ const createCategoryMutation: GraphQLFieldConfig<
     { data: { name, id } },
     _context: IApolloServerContext
   ): Promise<Category> => {
-    return updateCategory(name);
+    return updateCategory(name, id);
   },
 };
 
