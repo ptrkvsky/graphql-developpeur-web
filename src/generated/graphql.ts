@@ -3,8 +3,8 @@ import {
   GraphQLScalarType,
   GraphQLScalarTypeConfig,
 } from 'graphql';
-import { IPrismaContext } from '@src/lib/interfaces/IPrismaContext';
-
+import { IPrismaContext } from 'src/lib/interfaces/IPrismaContext';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -35,13 +35,11 @@ export type Category = {
   id: Scalars['ID'];
   /** Name of the category */
   name?: Maybe<Scalars['String']>;
-  /** Posts belonging to the category */
-  posts?: Maybe<Array<Maybe<Post>>>;
 };
 
 /** Create category input */
 export type CreateCategoryInput = {
-  /** The categorys name. */
+  /** Name of the category. */
   name: Scalars['String'];
 };
 
@@ -49,10 +47,22 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Create Category */
   createCategory?: Maybe<Category>;
+  /** Create Category */
+  updateCategoryMutation?: Maybe<Category>;
+  /** Delete a category with an id */
+  deleteCategoryMutation?: Maybe<Category>;
 };
 
 export type MutationCreateCategoryArgs = {
-  input?: Maybe<CreateCategoryInput>;
+  data?: Maybe<CreateCategoryInput>;
+};
+
+export type MutationUpdateCategoryMutationArgs = {
+  data?: Maybe<UpdateCategoryInput>;
+};
+
+export type MutationDeleteCategoryMutationArgs = {
+  id?: Maybe<Scalars['Int']>;
 };
 
 /** Posts of the blog */
@@ -62,11 +72,11 @@ export type Post = {
   id: Scalars['ID'];
   /** Creation date */
   createdAt?: Maybe<Scalars['DateTime']>;
-  /** Update date */
+  /** Update date of the post */
   updatedAt?: Maybe<Scalars['DateTime']>;
   /** Title of post */
   title?: Maybe<Scalars['String']>;
-  /** Title of post */
+  /** Status of the post, published or not */
   published?: Maybe<Scalars['Boolean']>;
   /** Category of post */
   category?: Maybe<Category>;
@@ -76,8 +86,26 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  getCategory?: Maybe<Category>;
   getAllCategorys?: Maybe<Array<Maybe<Category>>>;
+  getPost?: Maybe<Post>;
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
+};
+
+export type QueryGetCategoryArgs = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type QueryGetPostArgs = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** Update category input */
+export type UpdateCategoryInput = {
+  /** Id of the category. */
+  id: Scalars['Int'];
+  /** Name of the category. */
+  name: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -196,10 +224,11 @@ export type ResolversTypes = ResolversObject<{
   CreateCategoryInput: CreateCategoryInput;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Post: ResolverTypeWrapper<Post>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
+  UpdateCategoryInput: UpdateCategoryInput;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -210,10 +239,11 @@ export type ResolversParentTypes = ResolversObject<{
   CreateCategoryInput: CreateCategoryInput;
   DateTime: Scalars['DateTime'];
   Mutation: {};
+  Int: Scalars['Int'];
   Post: Post;
   Boolean: Scalars['Boolean'];
-  Int: Scalars['Int'];
   Query: {};
+  UpdateCategoryInput: UpdateCategoryInput;
 }>;
 
 export type CategoryResolvers<
@@ -222,11 +252,6 @@ export type CategoryResolvers<
 > = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  posts?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
-    ParentType,
-    ContextType
-  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -244,6 +269,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateCategoryArgs, never>
+  >;
+  updateCategoryMutation?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateCategoryMutationArgs, never>
+  >;
+  deleteCategoryMutation?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteCategoryMutationArgs, never>
   >;
 }>;
 
@@ -281,10 +318,22 @@ export type QueryResolvers<
   ContextType = IPrismaContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = ResolversObject<{
+  getCategory?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetCategoryArgs, never>
+  >;
   getAllCategorys?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Category']>>>,
     ParentType,
     ContextType
+  >;
+  getPost?: Resolver<
+    Maybe<ResolversTypes['Post']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryGetPostArgs, never>
   >;
   getAllPosts?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Post']>>>,

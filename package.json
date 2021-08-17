@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "generate": "graphql-codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest unit",
@@ -14,6 +13,9 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
+    "generate": "graphql-codegen --config codegen.yml",
+    "generate:migration": "npx prisma migrate dev",
+    "generate:reset": "npx prisma migrate reset --force",
     "commit": "cz"
   },
   "keywords": [],
@@ -21,12 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "@graphql-tools/schema": "^8.0.3",
-    "@prisma/client": "2.28.0",
+    "@prisma/client": "^2.29.1",
     "apollo-graphql": "^0.9.3",
     "apollo-server": "^3.1.2",
     "dotenv-cli": "^4.0.0",
     "dotenv-safe": "^8.2.0",
-    "graphql": "^15.5.1"
+    "graphql": "^15.5.1",
+    "graphql-iso-date": "^3.6.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.0.1",
@@ -53,11 +56,11 @@
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
-    "prisma": "2.28.0",
+    "prisma": "^2.29.1",
     "ts-jest": "^27.0.5",
     "ts-node": "10.2.0",
     "ts-node-dev": "1.1.8",
-    "typescript": "4.3.5"
+    "typescript": "^4.3.5"
   },
   "config": {
     "commitizen": {
