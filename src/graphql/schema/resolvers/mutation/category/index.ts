@@ -1,9 +1,5 @@
-import createCategoryMutation from './createCategoryMutation';
+import createCategory from './createCategory';
 import updateCategoryMutation from './updateCategoryMutation';
 import deleteCategoryMutation from './deleteCategoryMutation';
 
-export {
-  createCategoryMutation,
-  updateCategoryMutation,
-  deleteCategoryMutation,
-};
+export { createCategory, updateCategoryMutation, deleteCategoryMutation };

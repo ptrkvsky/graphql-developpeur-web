@@ -8,5 +8,5 @@ generates:
       - 'typescript-resolvers'
       - 'typescript-document-nodes'
     config:
-      contextType: src/prisma/IPrismaContext#IPrismaContext
+      contextType: src/lib/interfaces/IPrismaContext#IPrismaContext
       useIndexSignature: true
