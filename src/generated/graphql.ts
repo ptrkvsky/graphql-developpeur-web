@@ -1,11 +1,22 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { IPrismaContext } from 'src/prisma/IPrismaContext';
-import gql from 'graphql-tag';
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
+import { IPrismaContext } from '@src/lib/interfaces/IPrismaContext';
+
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -34,13 +45,11 @@ export type CreateCategoryInput = {
   name: Scalars['String'];
 };
 
-
 export type Mutation = {
   __typename?: 'Mutation';
   /** Create Category */
   createCategory?: Maybe<Category>;
 };
-
 
 export type MutationCreateCategoryArgs = {
   input?: Maybe<CreateCategoryInput>;
@@ -76,11 +85,12 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
-
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -103,9 +113,25 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
-  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -113,12 +139,26 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
-  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -127,11 +167,20 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
@@ -167,35 +216,81 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
 }>;
 
-export type CategoryResolvers<ContextType = IPrismaContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = ResolversObject<{
+export type CategoryResolvers<
+  ContextType = IPrismaContext,
+  ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']
+> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  posts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
+  posts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
-export type MutationResolvers<ContextType = IPrismaContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  createCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, never>>;
+export type MutationResolvers<
+  ContextType = IPrismaContext,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = ResolversObject<{
+  createCategory?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateCategoryArgs, never>
+  >;
 }>;
 
-export type PostResolvers<ContextType = IPrismaContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
+export type PostResolvers<
+  ContextType = IPrismaContext,
+  ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']
+> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  published?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
+  published?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
+  category?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType
+  >;
   categoryId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<ContextType = IPrismaContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  getAllCategorys?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
-  getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
+export type QueryResolvers<
+  ContextType = IPrismaContext,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = ResolversObject<{
+  getAllCategorys?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Category']>>>,
+    ParentType,
+    ContextType
+  >;
+  getAllPosts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Post']>>>,
+    ParentType,
+    ContextType
+  >;
 }>;
 
 export type Resolvers<ContextType = IPrismaContext> = ResolversObject<{
@@ -205,4 +300,3 @@ export type Resolvers<ContextType = IPrismaContext> = ResolversObject<{
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
-

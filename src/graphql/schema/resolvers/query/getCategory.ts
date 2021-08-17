@@ -1,6 +1,6 @@
 import { GraphQLFieldConfig, GraphQLInt, GraphQLNonNull } from 'graphql';
 import { Category } from '@prisma/client';
-import { IApolloServerContext } from '@src/interfaces/IApolloServerContext';
+import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
 import { getCategory } from '@src/data/serviceCategory';
 
