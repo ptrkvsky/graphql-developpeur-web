@@ -1,14 +1,11 @@
 import { GraphQLFieldConfig, GraphQLFieldResolver } from 'graphql';
 import { Category } from '@prisma/client';
 import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
-import { createCategory } from '@src/data/serviceCategory';
+import { createCategory as serviceCreateCategory } from '@src/data/serviceCategory';
 import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
 import CreateCategoryInput from '@src/graphql/schema/typedefs/CreateCategoryInput';
 
-const createCategoryMutation: GraphQLFieldConfig<
-  unknown,
-  IApolloServerContext
-> = {
+const createCategory: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   description: 'Create Category',
   type: GqlCategory,
   args: {
@@ -21,8 +18,8 @@ const createCategoryMutation: GraphQLFieldConfig<
     { data: { name } },
     _context: IApolloServerContext
   ): Promise<Category> => {
-    return createCategory(name);
+    return serviceCreateCategory(name);
   },
 };
 
-export default createCategoryMutation;
+export default createCategory;
