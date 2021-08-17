@@ -1,5 +1,5 @@
 import { Post } from '@prisma/client';
-import prisma from '@src/prisma/client';
+import prisma from '@src/lib/prisma/client';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getAllPosts = async (): Promise<Post[]> => {
