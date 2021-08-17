@@ -1,6 +1,6 @@
 import { GraphQLList } from 'graphql';
 import { Post } from '@prisma/client';
-import { IApolloServerContext } from '@src/interfaces/IApolloServerContext';
+import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import GqlPost from '@src/graphql/schema/typedefs/GqlPost';
 import { getAllPosts } from '@src/data/postService';
 

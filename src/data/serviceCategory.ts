@@ -1,5 +1,5 @@
 import { Category } from '@prisma/client';
-import prisma from '@src/prisma/client';
+import prisma from '@src/lib/prisma/client';
 
 /**
  * CREATE
