@@ -1,17 +1,12 @@
 import { GraphQLObjectType } from 'graphql';
-import getCategory from '@src/graphql/schema/resolvers/query/getCategory';
-import getAllCategorys from '@src/graphql/schema/resolvers/query/getAllCategorys';
-// Posts
-import getPost from '@src/graphql/schema/resolvers/query/getPost';
-import getAllPosts from '@src/graphql/schema/resolvers/query/getAllPosts';
+import * as querysCategory from '@src/graphql/schema/resolvers/query/category';
+import * as querysPost from '@src/graphql/schema/resolvers/query/post';
 
 const query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    getCategory,
-    getAllCategorys,
-    getPost,
-    getAllPosts,
+    ...querysCategory,
+    ...querysPost,
   },
 });
 
