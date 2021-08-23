@@ -1,9 +1,4 @@
-import {
-  GraphQLInputObjectType,
-  GraphQLInt,
-  GraphQLNonNull,
-  GraphQLString,
-} from 'graphql';
+import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
 
 const CreateCategoryInput: GraphQLInputObjectType = new GraphQLInputObjectType({
   name: 'CreateCategoryInput',

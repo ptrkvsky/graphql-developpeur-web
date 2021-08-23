@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { getCategory } from '@src/data/serviceCategory';
-import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
+import GqlCategory from '@src/graphql/schema/typedefs/category/GqlCategory';
 
 const GqlPost: GraphQLObjectType = new GraphQLObjectType({
   name: 'Post',

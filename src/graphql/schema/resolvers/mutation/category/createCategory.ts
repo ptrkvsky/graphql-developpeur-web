@@ -1,9 +1,9 @@
-import { GraphQLFieldConfig, GraphQLFieldResolver } from 'graphql';
+import { GraphQLFieldConfig } from 'graphql';
 import { Category } from '@prisma/client';
 import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import { createCategory as serviceCreateCategory } from '@src/data/serviceCategory';
-import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
-import CreateCategoryInput from '@src/graphql/schema/typedefs/CreateCategoryInput';
+import GqlCategory from '@src/graphql/schema/typedefs/category/GqlCategory';
+import CreateCategoryInput from '@src/graphql/schema/typedefs/category/CreateCategoryInput';
 
 const createCategory: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   description: 'Create Category',
