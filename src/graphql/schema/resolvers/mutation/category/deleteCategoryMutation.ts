@@ -2,7 +2,7 @@ import { GraphQLFieldConfig, GraphQLFieldResolver, GraphQLInt } from 'graphql';
 import { Category } from '@prisma/client';
 import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import { deleteCategory } from '@src/data/serviceCategory';
-import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
+import GqlCategory from '@src/graphql/schema/typedefs/category/GqlCategory';
 
 const deleteCategoryMutation: GraphQLFieldConfig<
   unknown,
