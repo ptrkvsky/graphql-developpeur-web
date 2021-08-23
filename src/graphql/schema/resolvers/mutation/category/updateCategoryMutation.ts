@@ -2,8 +2,8 @@ import { GraphQLFieldConfig, GraphQLFieldResolver } from 'graphql';
 import { Category } from '@prisma/client';
 import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import { updateCategory } from '@src/data/serviceCategory';
-import GqlCategory from '@src/graphql/schema/typedefs/GqlCategory';
-import UpdateCategoryInput from '@src/graphql/schema/typedefs/UpdateCategoryInput';
+import GqlCategory from '@src/graphql/schema/typedefs/category/GqlCategory';
+import UpdateCategoryInput from '@src/graphql/schema/typedefs/category/UpdateCategoryInput';
 
 const createCategoryMutation: GraphQLFieldConfig<
   unknown,
