@@ -1,23 +1,48 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { Role, User } from '@prisma/client';
 import prisma from '@src/lib/prisma/client';
+import { IToken } from '@src/lib/interfaces/IToken';
 
 /**
- * CREATE
+ * Signup
  */
-export const createUser = async (
+export const signupUser = async (
   name: string,
   email: string,
   password: string,
   role: Role
 ): Promise<User> => {
+  const passwordCrypted = bcrypt.hashSync(password, 3);
   return prisma.user.create({
     data: {
       name,
       email,
-      password,
+      password: passwordCrypted,
       role,
     },
   });
+};
+
+/**
+ * Signin
+ */
+export const signIn = async (
+  email: string,
+  password: string
+): Promise<IToken> => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) throw new Error('Unable to Login');
+  const jwtSecret = process.env.JWT_SECRET || 'pepperoni pizza';
+  const isMatch = bcrypt.compareSync(password, user.password);
+  if (!isMatch) throw new Error('Unable to Login');
+  const token = { token: jwt.sign(user, jwtSecret) };
+  return token;
 };
 
 /**
