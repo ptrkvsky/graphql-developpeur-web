@@ -1,10 +1,12 @@
 import { GraphQLObjectType } from 'graphql';
-import * as mutationCategory from '@src/graphql/schema/resolvers/mutation/category';
+import * as mutationsCategory from '@src/graphql/schema/resolvers/mutation/category';
+import * as mutationsUser from '@src/graphql/schema/resolvers/mutation/user';
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    ...mutationCategory,
+    ...mutationsCategory,
+    ...mutationsUser,
   },
 });
 

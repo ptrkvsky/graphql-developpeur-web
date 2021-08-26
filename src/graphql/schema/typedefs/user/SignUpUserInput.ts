@@ -1,8 +1,8 @@
 import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
 import UserRoleEnum from '@src/graphql/schema/typedefs/user/UserRoleEnum';
 
-const CreateUserInput: GraphQLInputObjectType = new GraphQLInputObjectType({
-  name: 'CreateUserInput',
+const SignUpUserInut: GraphQLInputObjectType = new GraphQLInputObjectType({
+  name: 'SignUpUserInut',
   description: 'Create user input',
   fields: {
     email: {
@@ -24,4 +24,4 @@ const CreateUserInput: GraphQLInputObjectType = new GraphQLInputObjectType({
   },
 });
 
-export default CreateUserInput;
+export default SignUpUserInut;

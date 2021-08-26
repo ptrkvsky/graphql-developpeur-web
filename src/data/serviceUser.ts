@@ -2,19 +2,19 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Role, User } from '@prisma/client';
 import prisma from '@src/lib/prisma/client';
-import { IToken } from '@src/lib/interfaces/IToken';
+import { IAuthPayLoad } from '@src/lib/interfaces/IAuthPayLoad';
 
 /**
  * Signup
  */
-export const signupUser = async (
-  name: string,
+export const signUpUser = async (
+  name: string | null,
   email: string,
   password: string,
   role: Role
-): Promise<User> => {
+): Promise<IAuthPayLoad> => {
   const passwordCrypted = bcrypt.hashSync(password, 3);
-  return prisma.user.create({
+  const newUser = await prisma.user.create({
     data: {
       name,
       email,
@@ -22,15 +22,18 @@ export const signupUser = async (
       role,
     },
   });
+  const jwtSecret = process.env.JWT_SECRET || 'pepperoni pizza';
+  const token = { token: jwt.sign(newUser, jwtSecret) };
+  return token;
 };
 
 /**
  * Signin
  */
-export const signIn = async (
+export const signInUser = async (
   email: string,
   password: string
-): Promise<IToken> => {
+): Promise<IAuthPayLoad> => {
   const user = await prisma.user.findUnique({
     where: {
       email,
