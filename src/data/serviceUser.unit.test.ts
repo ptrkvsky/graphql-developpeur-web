@@ -40,7 +40,6 @@ describe('User service test', () => {
     );
 
     const decodedAuthPayload = jwt.verify(authPayload.token, jwtSecret) as User;
-    console.log(decodedAuthPayload);
     expect(decodedAuthPayload.email).toBe(mockUser1.email);
   });
 
