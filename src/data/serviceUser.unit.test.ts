@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 import prismaMock from '@src/__tests__/__mocks__/prismaMock';
 import { getAllUsers, signUpUser } from '@src/data/serviceUser';
-import { IAuthPayLoad } from '@src/lib/interfaces/IAuthPayLoad';
 
 const mockUser1: User = {
   id: 1,
@@ -13,17 +11,11 @@ const mockUser1: User = {
   role: 'USER',
 };
 
-const mockAuthToken: IAuthPayLoad = {
-  token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGFyZ2Vyb25AaWRlYWwtY29tLmNvbSIsIm5hbWUiOiJEaWRpZXIiLCJwYXNzd29yZCI6ImfDqW5pZSBkZSBsJ2luZm9ybWF0aXF1ZSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjI5OTU0OTcyfQ.MWZlEettZwLTNxSKpz_BI1xCm6TI0gc-Zrh5s_WU8-Q',
-};
-
-const passwordUser2 = bcrypt.hashSync('WOOF WOOF', 3);
 const mockUser2: User = {
   id: 1,
   email: 'fpasquet@ideal-com.com',
   name: 'Florent',
-  password: passwordUser2,
+  password: 'WOOF WOOF',
   role: 'USER',
 };
 
