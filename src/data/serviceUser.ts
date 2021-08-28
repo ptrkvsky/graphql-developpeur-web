@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import { Role, User } from '@prisma/client';
 import prisma from '@src/lib/prisma/client';
 import { IAuthPayLoad } from '@src/lib/interfaces/IAuthPayLoad';
+import { ISession } from '@src/lib/interfaces/ISession';
+import { UserInputError } from 'apollo-server';
 
 /**
  * Signup
@@ -22,8 +24,14 @@ export const signUpUser = async (
       role,
     },
   });
+  const session: ISession = {
+    id: newUser.id,
+    name: newUser.name,
+    email: newUser.email,
+    role: newUser.role,
+  };
   const jwtSecret = process.env.JWT_SECRET || 'pepperoni pizza';
-  const token = { token: jwt.sign(newUser, jwtSecret) };
+  const token = { token: jwt.sign(session, jwtSecret) };
   return token;
 };
 
@@ -34,6 +42,9 @@ export const signInUser = async (
   email: string,
   password: string
 ): Promise<IAuthPayLoad> => {
+  if (!email || !password) {
+    throw new UserInputError('Invalid argument value');
+  }
   const user = await prisma.user.findUnique({
     where: {
       email,

@@ -31,8 +31,18 @@ describe('User service test', () => {
       mockUser1.role
     );
 
-    const decodedAuthPayload = jwt.verify(authPayload.token, jwtSecret) as User;
-    expect(decodedAuthPayload.email).toBe(mockUser1.email);
+    const decodedAuthPayload = jwt.verify(authPayload.token, jwtSecret);
+    if (typeof decodedAuthPayload !== 'string') {
+      expect(decodedAuthPayload).toStrictEqual({
+        id: mockUser1.id,
+        name: mockUser1.name,
+        email: mockUser1.email,
+        role: mockUser1.role,
+        iat: decodedAuthPayload.iat,
+      });
+    } else {
+      throw new Error('This is not a valide token');
+    }
   });
 
   test('Get all users test', async () => {
