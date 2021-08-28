@@ -1,4 +1,4 @@
 import GetAllUsers from './getAllUsers';
+import SignInUser from './signInUser';
 
-// eslint-disable-next-line import/prefer-default-export
-export { GetAllUsers };
+export { GetAllUsers, SignInUser };

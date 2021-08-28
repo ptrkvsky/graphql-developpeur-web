@@ -51,6 +51,8 @@ export type Mutation = {
   updateCategoryMutation?: Maybe<Category>;
   /** Delete a category with an id */
   deleteCategoryMutation?: Maybe<Category>;
+  /** Sign up user */
+  signUpUserMutation?: Maybe<Category>;
 };
 
 export type MutationCreateCategoryArgs = {
@@ -63,6 +65,10 @@ export type MutationUpdateCategoryMutationArgs = {
 
 export type MutationDeleteCategoryMutationArgs = {
   id?: Maybe<Scalars['Int']>;
+};
+
+export type MutationSignUpUserMutationArgs = {
+  data?: Maybe<SignUpUserInut>;
 };
 
 /** Posts of the blog */
@@ -90,6 +96,7 @@ export type Query = {
   getAllCategorys?: Maybe<Array<Maybe<Category>>>;
   getPost?: Maybe<Post>;
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
+  GetAllUsers?: Maybe<Array<Maybe<User>>>;
 };
 
 export type QueryGetCategoryArgs = {
@@ -100,6 +107,18 @@ export type QueryGetPostArgs = {
   id?: Maybe<Scalars['Int']>;
 };
 
+/** Create user input */
+export type SignUpUserInut = {
+  /** Email of the user. */
+  email: Scalars['String'];
+  /** Name of the user. */
+  name: Scalars['String'];
+  /** Password of the user. */
+  password: Scalars['String'];
+  /** Role of the user, ADMIN or USER */
+  role: UserRoleEnum;
+};
+
 /** Update category input */
 export type UpdateCategoryInput = {
   /** Id of the category. */
@@ -107,6 +126,26 @@ export type UpdateCategoryInput = {
   /** Name of the category. */
   name: Scalars['String'];
 };
+
+/** Users of the website */
+export type User = {
+  __typename?: 'User';
+  /** Id of the user */
+  id: Scalars['ID'];
+  /** Email of the user. */
+  email: Scalars['String'];
+  /** Name of the user. */
+  name: Scalars['String'];
+  /** Password of the user. */
+  password: Scalars['String'];
+  /** Role of the user, ADMIN or USER */
+  role: UserRoleEnum;
+};
+
+export enum UserRoleEnum {
+  User = 'USER',
+  Admin = 'ADMIN',
+}
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
@@ -228,7 +267,10 @@ export type ResolversTypes = ResolversObject<{
   Post: ResolverTypeWrapper<Post>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Query: ResolverTypeWrapper<{}>;
+  SignUpUserInut: SignUpUserInut;
   UpdateCategoryInput: UpdateCategoryInput;
+  User: ResolverTypeWrapper<User>;
+  UserRoleEnum: UserRoleEnum;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -243,7 +285,9 @@ export type ResolversParentTypes = ResolversObject<{
   Post: Post;
   Boolean: Scalars['Boolean'];
   Query: {};
+  SignUpUserInut: SignUpUserInut;
   UpdateCategoryInput: UpdateCategoryInput;
+  User: User;
 }>;
 
 export type CategoryResolvers<
@@ -281,6 +325,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteCategoryMutationArgs, never>
+  >;
+  signUpUserMutation?: Resolver<
+    Maybe<ResolversTypes['Category']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSignUpUserMutationArgs, never>
   >;
 }>;
 
@@ -340,6 +390,23 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
+  GetAllUsers?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['User']>>>,
+    ParentType,
+    ContextType
+  >;
+}>;
+
+export type UserResolvers<
+  ContextType = IPrismaContext,
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
+> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['UserRoleEnum'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = IPrismaContext> = ResolversObject<{
@@ -348,4 +415,5 @@ export type Resolvers<ContextType = IPrismaContext> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
