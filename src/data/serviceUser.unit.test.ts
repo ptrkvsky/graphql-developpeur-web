@@ -5,7 +5,7 @@ import { getAllUsers, signUpUser } from '@src/data/serviceUser';
 
 const mockUser1: User = {
   id: 1,
-  email: 'dlargeron@ideal-com.com',
+  email: 'dlargeron@ideal-test.com',
   name: 'Didier',
   password: "génie de l'informatique",
   role: 'USER',
@@ -13,22 +13,21 @@ const mockUser1: User = {
 
 const mockUser2: User = {
   id: 1,
-  email: 'fpasquet@ideal-com.com',
-  name: 'Florent',
-  password: 'WOOF WOOF',
+  email: 'johan@test.com',
+  name: 'Johan',
+  password: 'lorem ipsum',
   role: 'USER',
 };
 
 describe('User service test', () => {
-  test('Signup user test', async () => {
+  test('It should return a JWT object when signup', async () => {
     const jwtSecret = process.env.JWT_SECRET || 'pepperoni pizza';
     (prismaMock.user.create as jest.Mock).mockResolvedValue(mockUser1);
 
     const authPayload = await signUpUser(
       mockUser1.name,
       mockUser1.email,
-      mockUser1.password,
-      mockUser1.role
+      mockUser1.password
     );
 
     const decodedAuthPayload = jwt.verify(authPayload.token, jwtSecret);

@@ -1,14 +1,13 @@
-import { IAuthPayLoad } from './../../../../../lib/interfaces/IAuthPayLoad';
 import { GraphQLFieldConfig } from 'graphql';
-import { User } from '@prisma/client';
 import { IApolloServerContext } from '@src/lib/interfaces/IApolloServerContext';
 import { signUpUser } from '@src/data/serviceUser';
-import GqlUser from '@src/graphql/schema/typedefs/category/GqlCategory';
+import GqlAuthToken from '@src/graphql/schema/typedefs/user/GqlAuthToken';
 import SignUpUserInput from '@src/graphql/schema/typedefs/user/SignUpUserInput';
+import { IAuthPayLoad } from '@src/lib/interfaces/IAuthPayLoad';
 
 const signUpUserMutation: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   description: 'Sign up user',
-  type: GqlUser,
+  type: GqlAuthToken,
   args: {
     data: {
       type: SignUpUserInput,
@@ -16,10 +15,10 @@ const signUpUserMutation: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   },
   resolve: async (
     _source: unknown,
-    { data: { name, email, password, role } },
+    { data: { name, email, password } },
     _context: IApolloServerContext
   ): Promise<IAuthPayLoad> => {
-    const authPayload = signUpUser(name, email, password, role);
+    const authPayload = signUpUser(name, email, password);
     return authPayload;
   },
 };
